@@ -5,22 +5,30 @@
  * @returns {string[]}
  */
 export function sortStrings(arr, param = 'asc') {
-    let result = [];
-    for(let i = 0; i<arr.length; i++)
+    try
     {
-        result[i] = arr[i];
-    }
-    const collator = new Intl.Collator(['ru', 'en'], {
+        let [...result] = arr;
+        let type = param;
+        const collator = new Intl.Collator(['ru', 'en'], {
             sensitivity: 'variant',
             caseFirst: 'upper'
         });
-    if(param == 'asc')
+        switch(type)
+        {
+            case 'asc':
+                result.sort(collator.compare);
+                break;
+            case 'desc':
+                result.sort((a, b) => collator.compare(b, a));
+                break;
+            default:
+                throw new Error("Выбран несуществующий метод сортировки");
+        }
+        return result;
+    } catch
     {
-        result.sort(collator.compare);
-    } else
-    {
-        result.sort((a, b) => collator.compare(b, a));
-    }
-    return result;
+        alert("Выбран несуществующий метод сортировки");
+    }    
+    return arr;
 }
 
