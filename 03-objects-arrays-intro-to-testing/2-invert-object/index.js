@@ -14,7 +14,7 @@ export function invertObj(obj) {
             obj[`${value}`] = key;
         } else throw new Error();
     }
-    } catch
+    } catch 
     {
         return undefined;
     }
